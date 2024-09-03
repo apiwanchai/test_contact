@@ -1,16 +1,16 @@
 <script setup>
 import { ref, computed } from "vue";
-import mocData from '@/mocdata.json';
+import mocData from "@/mocdata.json";
 
-const list = ref(mocData); 
+const list = ref(mocData);
 const searchQuery = ref("");
 const currentPage = ref(1);
-const pageSize = ref(20); 
+const pageSize = ref(20);
 
 const showDeleteConfirmDialog = ref(false);
 const showSuccessSnackbar = ref(false);
 const showErrorSnackbar = ref(false);
-const itemToDelete = ref(null); 
+const itemToDelete = ref(null);
 
 const filteredList = computed(() => {
   if (searchQuery.value.length < 3) return list.value;
@@ -25,7 +25,6 @@ const paginatedList = computed(() => {
   return filteredList.value.slice(startIndex, endIndex);
 });
 
-
 const confirmDelete = (item) => {
   itemToDelete.value = item;
   showDeleteConfirmDialog.value = true;
@@ -34,26 +33,22 @@ const deleteItem = async () => {
   if (!itemToDelete.value) return;
   try {
     await fetch(`/api/delete/${itemToDelete.value.id}`, {
-      method: 'DELETE',
+      method: "DELETE",
     });
-    list.value = list.value.filter(item => item.id !== itemToDelete.value.id);
+    list.value = list.value.filter((item) => item.id !== itemToDelete.value.id);
     showSuccessSnackbar.value = true;
   } catch (error) {
-
     showErrorSnackbar.value = true;
   } finally {
-   
     showDeleteConfirmDialog.value = false;
     itemToDelete.value = null;
   }
 };
 
-
 const clearSearch = () => {
   searchQuery.value = "";
 };
 </script>
-
 
 <template>
   <v-container class="mt-8">
@@ -77,10 +72,17 @@ const clearSearch = () => {
     </v-row>
 
     <v-row>
-      <v-col v-for="(item, index) in paginatedList" :key="item.id" cols="12" md="4">
+      <v-col
+        v-for="(item, index) in paginatedList"
+        :key="item.id"
+        cols="12"
+        md="4"
+      >
         <v-card>
           <v-card-title>{{ item.fullname }}</v-card-title>
-          <v-card-subtitle>{{ $t('list.age') }}: {{ item.age }}</v-card-subtitle>
+          <v-card-subtitle
+            >{{ $t("list.age") }}: {{ item.age }}</v-card-subtitle
+          >
 
           <v-card-actions>
             <v-btn icon @click="confirmDelete(item)">
@@ -103,15 +105,17 @@ const clearSearch = () => {
     <!-- Confirmation Dialog -->
     <v-dialog v-model="showDeleteConfirmDialog" max-width="500px">
       <v-card>
-        <v-card-title>{{ $t('alert.confirmTitle') }}</v-card-title>
-        <v-card-text>{{ $t('alert.confirmMessage') }}</v-card-text>
+        <v-card-title>{{ $t("alert.confirmTitle") }}</v-card-title>
+        <v-card-text>{{ $t("alert.confirmMessage") }}</v-card-text>
         <v-card-actions>
-          <v-btn color="red" text @click="deleteItem">{{ $t('alert.confirmDelete') }}</v-btn>
-          <v-btn text @click="showDeleteConfirmDialog = false">{{ $t('alert.cancel') }}</v-btn>
+          <v-btn color="red" text @click="deleteItem">{{
+            $t("alert.confirmDelete")
+          }}</v-btn>
+          <v-btn text @click="showDeleteConfirmDialog = false">{{
+            $t("alert.cancel")
+          }}</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
-
-
   </v-container>
 </template>

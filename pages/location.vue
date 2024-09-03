@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from "vue";
 
-// สถานะตำแหน่งที่ตั้ง
 const error = ref("");
 const loading = ref(false);
 
-// ฟังก์ชันสำหรับเปิดแผนที่ภายนอกด้วยตำแหน่งปัจจุบัน
 const openMapWithCurrentLocation = () => {
   loading.value = true;
   if (navigator.geolocation) {
@@ -30,18 +28,16 @@ const openMapWithCurrentLocation = () => {
 
 <template>
   <v-container class="mt-10 text-center" height="800">
-    <!-- ส่วนหัว -->
     <v-row>
       <v-col cols="12">
         <v-icon size="80" color="black" class="mb-4">mdi-map-marker</v-icon>
-        <h1 class="text-h4 font-weight-bold">{{ $t('location.title') }}</h1>
+        <h1 class="text-h4 font-weight-bold">{{ $t("location.title") }}</h1>
         <p class="text-subtitle-1">
-          {{ $t('location.subttitle') }}
+          {{ $t("location.subttitle") }}
         </p>
       </v-col>
     </v-row>
 
-    <!-- ปุ่มสำหรับเปิดแผนที่ -->
     <v-row justify="center" class="mt-6">
       <v-col cols="12" md="6">
         <v-btn
@@ -54,12 +50,11 @@ const openMapWithCurrentLocation = () => {
           :disabled="loading"
         >
           <v-icon left>mdi-map-outline</v-icon>
-          {{ $t('location.buttonText') }}
+          {{ $t("location.buttonText") }}
         </v-btn>
       </v-col>
     </v-row>
 
-    <!-- แสดงสถานะกำลังโหลด -->
     <v-row v-if="loading" justify="center" class="mt-4">
       <v-col cols="12" class="text-center">
         <v-progress-circular
@@ -67,11 +62,10 @@ const openMapWithCurrentLocation = () => {
           color="primary"
           size="70"
         ></v-progress-circular>
-        <p class="mt-2">{{ $t('location.loading') }}.</p>
+        <p class="mt-2">{{ $t("location.loading") }}.</p>
       </v-col>
     </v-row>
 
-    <!-- แสดงผลข้อผิดพลาดหากมี -->
     <v-row v-if="error" justify="center" class="mt-4">
       <v-col cols="12" md="6">
         <v-alert type="error" dismissible>{{ error }}</v-alert>

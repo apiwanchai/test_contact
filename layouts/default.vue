@@ -39,7 +39,8 @@ const getFlagImage = computed(() => {
 const profileImage = ref("https://cdn.vuetifyjs.com/images/john.jpg");
 
 onMounted(() => {
-  const savedProfileImage = localStorage.getItem("profileImage");
+
+  const savedProfileImage = Cookies.get("profileImage");
 
   if (savedProfileImage) {
     profileImage.value = savedProfileImage;
@@ -47,7 +48,8 @@ onMounted(() => {
 });
 
 watch(profileImage, (newImage) => {
-  localStorage.setItem("profileImage", newImage);
+ 
+  Cookies.set("profileImage", newImage, { expires: 365 });
 });
 
 const changeLang = (data) => {
@@ -68,10 +70,12 @@ const editProfileImage = (event) => {
     const imageUrl = URL.createObjectURL(file);
     profileImage.value = imageUrl;
     location.reload();
-    localStorage.setItem("profileImage", imageUrl);
+   
+    Cookies.set("profileImage", imageUrl, { expires: 365 });
   }
 };
 </script>
+
 
 <template>
   <v-app>
@@ -101,8 +105,6 @@ const editProfileImage = (event) => {
             :title="admin.title"
           ></v-list-item>
         </v-list-group>
-
-        <!-- Current Location Link -->
         <v-list-item
           :to="{ path: '/Location' }"
           :title="$t('menu.location')"
@@ -113,9 +115,9 @@ const editProfileImage = (event) => {
 
     <v-app-bar floating>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-      <v-btn icon="mdi-home" @click="navigateTo('/')"></v-btn>
+      <v-btn icon="mdi-clipboard-account" @click="navigateTo('/')"></v-btn>
       <v-app-bar-title>
-        <p class="">Contact App</p>
+        <p class="hidden-sm-and-down">Contact App</p>
       </v-app-bar-title>
 
       <v-spacer></v-spacer>
@@ -156,13 +158,9 @@ const editProfileImage = (event) => {
               :title="item.title"
               @click="changeLang(item.lang)"
             >
-            
-                <template v-slot:prepend>
-                  <v-avatar size="20"  :image="item.img">
-                    
-                  </v-avatar>
-                </template>
-             
+              <template v-slot:prepend>
+                <v-avatar size="20" :image="item.img"> </v-avatar>
+              </template>
             </v-list-item>
           </v-list>
         </v-menu>
