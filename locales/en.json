@@ -1,0 +1,62 @@
+{
+    "welcome": "Welcome",
+    "hello": "Hello",
+    "editProflie":"Edit Profile Image",
+    "menu":{
+      "home":"Home",
+      "contact":"Contact",
+      "list":"List",
+      "create":"Create",
+      "location":"Current Location"
+
+    },
+    "footer":{
+      "address":"Address",
+      "line":"Line",
+      "phone":"Phone",
+      "email":"Email"
+  },
+  "list":{
+    "search":"Search name",
+    "age":"Age"
+  },
+  "create":{
+    "contact":" Create New Contact",
+    "fullname": "Full Name",
+    "age":"Age",
+    "submit":"Submit",
+    "ok":"Ok"
+  },
+  "alert":{
+    "success":"Success",
+    "titleSuccess":"Contact has been created successfully.",
+    "error":"Error",
+    "titleError":"There was an error creating the contact. Please check the form and try again.",
+    "confirmTitle": "Confirm Deletion",
+    "confirmMessage": "Are you sure you want to delete this item?",
+    "confirmDelete": "Delete",
+    "cancel": "Cancel",
+    "successMessage": "Item successfully deleted!",
+    "errorMessage": "Failed to delete item. Please try again."
+  },
+  "validate":{
+    "fullname":"Full Name is required",
+    "fullLeast":"Full Name must be at least 3 characters long",
+    "age":"Age is required",
+    "ageNumber":"Age must be a number",
+    "ageZero":"Age must be greater than 0"
+  },
+  "location":{
+    "title":"Check Your Current Location",
+    "subttitle":"Click the button below to open Google Maps with your current location.",
+    "buttonText":"View Current Location in Google Maps",
+    "loading":"Loading your current location..."
+  },
+  "lang":{
+    "thai":"Thai",
+    "eng":"English"
+  },
+  "itemperpage":"Items per peage"
+  
+  
+  }
